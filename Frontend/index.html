@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes app</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body class="bg-secondary d-flex flex-column min-vh-100" id="body">
+
+    <div class="container my-2">
+        <div class="row justify-content-around">
+            <div class="col-4">
+                <h1 id="screenTitle">My notes</h1>
+            </div>
+            <div class="col">
+                <div class="d-flex h-100 justify-content-end">
+                    <div class="col-2 mx-2">
+                        <button type="button" class="btn btn-outline-lightGrey1 mx-auto h-100 w-100"
+                            id="archivedActiveNotesButton">Archived</button>
+                    </div>
+                    <div class="col-4" data-bs-toggle="modal" data-bs-target="#createNoteModal">
+                        <button type="button" class="btn btn-outline-orange mx-auto h-100 w-100"
+                            id="createNoteButton">New note</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="row justify-content-around">
+
+            <div class="col" id="notesCol">
+
+                <template id="noteTemplate">
+                    <div class="card mx-auto bg-beige my-2" id="noteCard">
+                        <div class="card-body">
+                            <h5 class="card-title" id="noteTitle">Title</h5>
+                            <p class="card-text" id="noteText">Text</p>
+                            <div class="col">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-transparent" id="archiveActiveButton"><img
+                                            src="./assets/archive.png" width="30" height="30"
+                                            id="archiveActiveButtonImg"></button>
+                                    <button type="button" class="btn btn-transparent" id="editButton"
+                                        data-bs-toggle="modal" data-bs-target="#createNoteModal"><img
+                                            src="./assets/edit.png" width="30" height="30"></button>
+                                    <button type="button" class="btn btn-transparent" id="deleteButton"><img
+                                            src="./assets/delete.png" width="30" height="30"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <footer class="bg-darkGrey2 text-light py-0 mt-auto">
+        <div class="container my-1">
+          <p>Keiner, Juan - Ensolvers excercise - 2023</p>
+        </div>
+      </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createNoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input class="modal-title w-100" id="newNoteTitle" type="text" placeholder="Title...">
+                </div>
+                <div class="modal-body">
+                    <textarea name="paragraph_text" id="newNoteText" style="width: 100%; max-width: 100%;" rows="6"
+                        placeholder="Note..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-transparent" data-bs-dismiss="modal"><img
+                            src="./assets/cross.png" width="40" height="40"></button>
+                    <button type="button" class="btn btn-transparent" data-bs-dismiss="modal" id="createNoteButtonModal"><img
+                            src="./assets/save.png" width="40" height="40"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+// .modal-dialog,
+// .modal-content {
+//     /* 80% of window height */
+//     height: 80%;
+// }
+
+// .modal-body {
+//     /* 100% = dialog height, 120px = header + footer */
+//     max-height: calc(100% - 120px);
+//     overflow-y: scroll;
+// } 
+
+// .btn.btn-outline-lightGrey1 :active { background-color: #ff0000 }
+// .btn.btn-outline-lightGrey1 :hover { background-color: #00ff2a }
+
+$theme-colors:(
+    "primary": #5a5a5a,
+    "secondary": #e7e7e7,
+    "tertiary": #c9c9c9,
+    "transparent": #ffffff00,
+    "beige": #fff8b7,
+    "yellow": #ffe600,
+    "darkGrey1": #808080,
+    "darkGrey2": #727272,
+    "lightGrey1": #4949498e,
+    "orange": #ffa600
+);
+
+@import "./node_modules/bootstrap/scss/bootstrap.scss" 
