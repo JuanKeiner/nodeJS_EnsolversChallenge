@@ -1,4 +1,5 @@
 import { Note } from "../models/Notes.js"
+import { User } from "../models/Users.js"
 
 export const getActiveNotes = async (req, res) => {
     try {

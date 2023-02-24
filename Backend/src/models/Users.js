@@ -1,20 +1,17 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-export const Note = sequelize.define("notes",{
+export const User = sequelize.define("user",{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    title:{
+    name:{
         type: DataTypes.STRING
     },
-    text:{
+    password:{
         type: DataTypes.STRING(1234)
-    },
-    archived:{
-        type: DataTypes.BOOLEAN
     }
 
 })
