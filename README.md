@@ -13,6 +13,11 @@
     ```
     node index.js
     ```
+  - Insert the name of the Database created, the owner username and password
+  - Enter the data from the created database
+    - Name
+    - Owner
+    - Password
 
 ## Webpage
 
