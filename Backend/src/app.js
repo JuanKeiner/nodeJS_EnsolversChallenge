@@ -1,5 +1,6 @@
 import express from 'express';
 import notesRoutes from './routes/notes.routes.js';
+import usersRoutes from './routes/users.routes.js';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -10,9 +11,10 @@ __dirname = path.join(__dirname, '../../Frontend');
 
 const app = express();
 
+
 app.use((req, res, next) => {
 
-    // Set the Access-Control-Allow-Origin header to allow requests from any domain (must change!)
+    // Set the Access-Control-Allow-Origin header to allow requests from any domain (change!)
     res.setHeader('Access-Control-Allow-Origin', '*'); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -28,5 +30,6 @@ app.get('/', (req, res) => {
 });
 
 app.use(notesRoutes);
+app.use(usersRoutes);
 
 export default app;

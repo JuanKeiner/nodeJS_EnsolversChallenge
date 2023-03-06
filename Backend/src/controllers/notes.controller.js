@@ -1,15 +1,19 @@
-import { Note } from "../models/Notes.js"
-import { User } from "../models/Users.js"
+/////////////////////////////////////
+// This file contains all functions
+// called in response to http requests.
+/////////////////////////////////////
+
+import { Note } from "../models/Notes.js";
 
 export const getActiveNotes = async (req, res) => {
     try {
-        
+        if(!checkLogged()) throw new Error('Not logged');
         const notes = await Note.findAll({
-            where:{
+            where: {
                 archived: false
             }
         });
-        
+
         res.json(notes);
 
     } catch (error) {
@@ -20,13 +24,13 @@ export const getActiveNotes = async (req, res) => {
 }
 export const getArchivedNotes = async (req, res) => {
     try {
-        
+        if(!checkLogged()) throw new Error('Not logged');
         const notes = await Note.findAll({
-            where:{
+            where: {
                 archived: true
             }
         });
-        
+
         res.json(notes);
 
     } catch (error) {
@@ -38,11 +42,12 @@ export const getArchivedNotes = async (req, res) => {
 
 export const getNote = async (req, res) => {
     try {
+        if(!checkLogged()) throw new Error('Not logged');
         const { id } = req.params;
         const note = await Note.findByPk(id);
-        if(note!=null)res.json(note);
+        if (note != null) res.json(note);
         else res.status(404).json({
-            message: "Note "+id+" doesn't exist"
+            message: "Note " + id + " doesn't exist"
         })
 
     } catch (error) {
@@ -53,8 +58,8 @@ export const getNote = async (req, res) => {
 }
 
 export const createNote = async (req, res) => {
-
     try {
+        if(!checkLogged()) throw new Error('Not logged');
         const { title, text, archived } = req.body;
 
         const newNote = await Note.create({
@@ -74,9 +79,9 @@ export const createNote = async (req, res) => {
 
 
 export const updateNote = async (req, res) => {
-
     const data = req.body;
     try {
+        if(!checkLogged()) throw new Error('Not logged');
         const { id } = req.params;
         const title = data.title;
         const text = data.text;
@@ -97,8 +102,8 @@ export const updateNote = async (req, res) => {
 
 }
 export const deleteNote = async (req, res) => {
-
     try {
+        if(!checkLogged()) throw new Error('Not logged');
         const { id } = req.params;
 
         const newNote = await Note.destroy({
@@ -114,4 +119,9 @@ export const deleteNote = async (req, res) => {
         })
     }
 
+}
+
+function checkLogged() {
+    // if (User.logged == null) return false;
+    return true;
 }

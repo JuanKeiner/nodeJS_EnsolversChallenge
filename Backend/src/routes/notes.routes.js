@@ -1,6 +1,12 @@
-import { Router } from "express";
+/////////////////////////////////////
+// This file specifies which functions
+// are called with each http request.
+/////////////////////////////////////
 
+
+import { Router } from "express";
 import { getActiveNotes, getArchivedNotes, getNote, createNote, updateNote, deleteNote } from "../controllers/notes.controller.js"
+
 
 const router = Router();
 router.get("/notes/active", getActiveNotes);

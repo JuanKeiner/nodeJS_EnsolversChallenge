@@ -9,9 +9,10 @@ const prompt = promptSync();
 let dbUserName;
 let dbUserPass;
 
+//Ask the user for the database user credentials
 databaseCredentialsInput();
 
-// create a new pool object to manage connections to the database
+//Create a new pool object to manage connections to the database
 const client = new Client({
     host: 'localhost',
     user: dbUserName,
@@ -19,11 +20,11 @@ const client = new Client({
     port: 5432,
 });
 
+//Create the database
 export const createDatabase = async () => {
     try {
         await client.connect();                            // gets connection
         await client.query('CREATE DATABASE ' + "notesdatabase");
-        console.log("Creada");
         return true;
     } catch (error) {
         if(error.code = "42P04") return true;
@@ -35,7 +36,7 @@ export const createDatabase = async () => {
 };
 
 
-
+//Create the ORM instance
 export const sequelize = new Sequelize("notesdatabase", client.user, client.password, {
     host: "localhost",
     port: client.port,
@@ -43,7 +44,6 @@ export const sequelize = new Sequelize("notesdatabase", client.user, client.pass
 })
 
 function databaseCredentialsInput(){
-
     dbUserName = prompt('Database owner name (default: postgres): ');
     if(dbUserName=="") dbUserName = "postgres";
     do {

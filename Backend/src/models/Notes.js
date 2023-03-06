@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
+//Note table
 export const Note = sequelize.define("notes",{
     id:{
         type: DataTypes.INTEGER,
@@ -18,3 +19,4 @@ export const Note = sequelize.define("notes",{
     }
 
 })
+

@@ -1,12 +1,15 @@
 const notesColumn = document.getElementById("notesCol")
 
 const createNoteButton = document.getElementById("createNoteButton")
+const archivedActiveNotesButton = document.getElementById("archivedActiveNotesButton")
+const loginModalButton = document.getElementById("loginModalButton")
+const loginButton = document.getElementById("loginButton")
 
 const noteTemplate = document.getElementById("noteTemplate").content
 const createNoteModal = document.getElementById("createNoteModal")
+const loginModal = document.getElementById("loginModal")
 
 const screenTitle = document.getElementById("screenTitle")
-const archivedActiveNotesButton = document.getElementById("archivedActiveNotesButton")
 
 // let activeNoteEdition = null;
 
@@ -40,6 +43,22 @@ let fetchNotes = async () => {
 
 let addButtonsEventListeners = () => {
     try {
+        loginButton.addEventListener("click", e => {
+            let username = document.getElementById("Username").value;
+            let password = document.getElementById("Password").value;
+
+            let user = {
+                name: username,
+                password: password
+            }
+
+            loginModalButton.style.display = "none";
+
+            loginFunc(user);
+
+            e.stopPropagation();
+        })
+
         archivedActiveNotesButton.addEventListener("click", e => {
 
             archivedSection = !archivedSection;
@@ -64,7 +83,6 @@ let addButtonsEventListeners = () => {
         })
 
         document.getElementById("createNoteButtonModal").addEventListener("click", e => {
-            console.log("Buenas");
             let title = document.getElementById("newNoteTitle").value;
             let text = document.getElementById("newNoteText").value;
             let id = createNoteModal.querySelector(".modal-content").id;
@@ -96,7 +114,7 @@ let addButtonsEventListeners = () => {
 }
 
 const paintNotes = () => {
-    const fragmento = document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
 
     notesList.sort((x1, x2) => {
         if (x1.updatedAt > x2.updatedAt) return -1;
@@ -112,24 +130,24 @@ const paintNotes = () => {
 
         noteTemplate2.getElementById("deleteButton").addEventListener("click", e => {
             deleteNote(notesList[i].id);
-            e.stopPropagation()
+            e.stopPropagation();
         })
         noteTemplate2.getElementById("editButton").addEventListener("click", e => {
             document.getElementById("newNoteTitle").value = notesList[i].title;
             document.getElementById("newNoteText").value = notesList[i].text;
             createNoteModal.querySelector(".modal-content").id = notesList[i].id;
-            e.stopPropagation()
+            e.stopPropagation();
         })
         noteTemplate2.getElementById("archiveActiveButton").addEventListener("click", e => {
             notesList[i].archived = !archivedSection;
             updateNote(notesList[i]);
-            e.stopPropagation()
+            e.stopPropagation();
         })
-        fragmento.appendChild(noteTemplate2)
+        fragment.appendChild(noteTemplate2);
     }
 
     notesColumn.innerHTML = "";
-    notesColumn.appendChild(fragmento)
+    notesColumn.appendChild(fragment);
 
 }
 
@@ -144,7 +162,7 @@ let deleteNote = async (id) => {
 
         for (let i = 0; i < notesList.length; i++) {
             if (notesList[i].id == id) {
-                notesList.splice(i, 1);;
+                notesList.splice(i, 1);
                 break;
             }
 
@@ -204,7 +222,7 @@ let createNote = async (note) => {
             },
             body: JSON.stringify({ title: note.title, text: note.text, archived: note.archived })
         });
-        
+
         fetchNotes().then(paintNotes);
     } catch (error) {
         console.log(error);
@@ -229,12 +247,32 @@ let changeColors = () => {
     }
 }
 
+
+let loginFunc = async (user) => {
+
+    let str = "http://localhost:4000/login";
+    try {
+        let respuesta = await fetch(str, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: user.name, password: user.password })
+        });
+
+        fetchNotes().then(paintNotes);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 let disableCreateButton = () => {
 
     //changeColors
     if (archivedSection) {
-        createNoteButton.style.display = "none"
+        createNoteButton.style.display = "none";
     } else {
-        createNoteButton.style.display = "block"
+        createNoteButton.style.display = "block";
     }
 }
